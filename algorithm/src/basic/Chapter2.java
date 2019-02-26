@@ -13,6 +13,8 @@ public class Chapter2 {
 	 * 
 	 * Java의 경우에는 javs.util.Stack을 사용하는 것이 좋다.
 	 * 
+	 * Queue는 java.util.Queue를 사용하는데 큐를 구현하는 방식을 선택할 수 있다.
+	 * Queue q = new LinkedList(); 와 같이.
 	 * 
 	 */
 	
