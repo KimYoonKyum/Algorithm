@@ -3,25 +3,66 @@ package example.chapter5;
 import java.util.Scanner;
 
 public class Q2751 {
-	
+	static int result[];
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		int[] arr = new int[n];
-		int idx = 0;
+		result = new int[n];
 		for(int i=0; i<n;i++){
-			arr[idx] = sc.nextInt();
+			arr[i] = sc.nextInt();
+		}
+		
+		mergeSort(arr,0,arr.length-1);
+		
+		//Stringbulider¸¦ »ç¿ëÇØ¾ßÇÔ. ÀÌÀ¯´Â printlnÀ¸·Î °è¼Ó Âï¾î¹ö¸®¸é println ÇÔ¼ö ³»ºÎ¿¡ ´Ù¸¥ ÇÔ¼öµéÀÌ °è¼Ó È£ÃâµÇ¸é¼­ ¿À¹öÇìµå°¡ ¹ß»ý. ½Ã°£ÀÌ °ÅÀÇ µÎ¹èÂ÷ÀÌ.
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<n;i++){
+			sb.append(arr[i]+"\n");
+		}
+		System.out.println(sb);
+	}
+	
+	//divide
+	private static void mergeSort(int[] arr, int begin,int end) {
+		int mid;
+		
+		//begin º¸´Ù end°¡ Å¬¶§¸¸ µ¿ÀÛ
+		if(begin < end) {
+			mid = (begin+end)/2;
+			mergeSort(arr, begin, mid); // ¹Ý¾¿ ÂÉ°³±â
+			mergeSort(arr, mid+1,end);
+			merge(arr,begin,mid,end); // ÇÕÄ¡±â
 		}
 	}
 	
-	//ë¶„í•  í•˜ëŠ” ë¶€ë¶„ 
-	private static void mergeSort(int[] arr) {
+	//conquer
+	private static void merge(int[] arr, int begin, int mid, int end) {
+		int x = begin;// Ã¹¹øÂ° ¹è¿­ ½ÃÀÛÀÎµ¦½º
+		int y = mid+1; // µÎ¹øÂ°¹è¿­ÀÇ ½ÃÀÛ ÀÎµ¦½º
+		int z = begin; // °á°ú ¹è¿­ÀÇ ÀÎµ¦½º°¡ µÉ ³ð
 		
-	}
-	
-	//í•©ë³‘í•˜ëŠ” ë¶€ë¶„ 
-	private static void merge() {
+		while(x<=mid || y<=end) { // °¢°¢ ÂÉ°³Áø ¹è¿­ÀÇ ³¡±îÁö¸¸ ºñ±³
+			
+			if(x<=mid && y<=end) { // µÎ¹è¿­ ¸ðµÎ ºñ±³ÇÒ ´ë»óÀÌ ³²ÀÌ ÀÖ´Â »óÅÂ¶ó¸é
+				if(arr[x] <= arr[y]){ //µÎ¹è¿­ ºñ±³ÇÏ¸é¼­ Ã¹ ¹øÂ° ¹è¿­ÀÇ ºñ±³ÇÒ °ªÀÌ µÎ¹øÂ° ¹è¿­º¸´Ù ÀÛÀ¸¸é
+					result[z] = arr[x++]; // °á°ú ¹è¿­¿¡ ÀúÀåÇÏ°í Ã¹¹øÂ° ¹è¿­ÀÇ ´ÙÀ½°ªÀ» ºñ±³ÇÏ±â À§ÇØ ÀÎµ¦½º¸¦ ÇÏ³ª Áõ°¡ ½ÃÅ´.
+				} else {
+					result[z] = arr[y++];
+				}
+			} else if(x<=mid && y>end) { // µÎ¹øÂ° ¹è¿­ÀÇ ÀÎµ¦½º°¡ end º¸´Ù Ä¿Á® µÎ¹øÂ° ¹è¿­Àº ºñ±³ÇÒ ´ë»óÀÌ ¾ø´Â °æ¿ìÀÌ°í, Ã¹¹øÂ°´Â ºñ±³ÇÒ °ªÀÌ ³²¾Æ ÀÖ´Â °æ¿ì.
+				result[z] = arr[x++];
+			} else { //Ã¹ ¹øÂ° ¹è¿­Àº ºñ±³ÇÒ °ªÀÌ ¾ø´Â °æ¿ì. µÎ¹øÂ° ¹è¿­Àº ³²¾Æ ÀÖÀ½(x>mid && y<=end °æ¿ì) 
+				result[z] = arr[y++];
+			}
+			z++; // °á°ú ¹è¿­ÀÇ ÀÎµ¦½º Áõ°¡
+		}
 		
+		//Á¤·ÄµÈ °á°ú  ¾ÖµéÀ» ´ÙÀ½ Å©±âÀÇ ¹è¿­°ú ºñ±³ÇÏ±â À§ÇØ ´Ù½Ã ÀÌÀü ¹è¿­¿¡ ÀúÀå 
+		// ºñ±³ÇÑ °ªµé ¸¸Å­¸¸ ¿ø·¡ ¹è¿­·Î ¿Å±è. ¾îÂ÷ÇÇ ºñ±³ÇÏ´Â°Ç end ´ÙÀ½ ºÎÅÍ´Ï±ñ.
+		for(int i=begin; i<end+1; i++) { 
+			arr[i] = result[i];
+		}
 	}
 
 }
