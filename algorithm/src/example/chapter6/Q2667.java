@@ -9,8 +9,8 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class Q2667 {
-	static int[][] d; // ¹æ¹®¿©ºÎ Á¤º¸ ÀúÀå ¹è¿­
-	static int[][] a; // Á¤Á¡ Á¤º¸ ÀúÀå ¹è¿­
+	static int[][] d; // ï¿½æ¹®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+	static int[][] a; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 	
 	static final int[] dx = {0,0,1,-1};
 	static final int[] dy = {1,-1,0,0};
@@ -27,17 +27,17 @@ public class Q2667 {
             }
         }
 		
-		int cnt = 0; // ±×·ì ¹øÈ£ Ä«¿îÆ®
+		int cnt = 0; // ï¿½×·ï¿½ ï¿½ï¿½È£ Ä«ï¿½ï¿½Æ®
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<n; j++) {
-				if(a[i][j] == 1 && d[i][j] == 0) { // Á¤Á¡ÀÌ ÁýÀÌ°í, ¹æ¹®ÇÏÁö ¾Ê¾Ò´Ù¸é bfs ¼öÇà
+				if(a[i][j] == 1 && d[i][j] == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½æ¹®ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½ bfs ï¿½ï¿½ï¿½ï¿½
 					bfs(i,j, ++cnt,n);
 					System.out.println();
 				}
 			}
 		}
 		
-		int[] ans = new int[cnt]; // °¢ ±×·ì¸¶´Ù ¸î°³ÀÇ ÁýÀÌ ÀÖ´ÂÁö Ä«¿îÆ® ÇÏ±â À§ÇÑ ¹è¿­
+		int[] ans = new int[cnt]; // ï¿½ï¿½ ï¿½×·ì¸¶ï¿½ï¿½ ï¿½î°³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<n; j++) {
 				if(d[i][j] != 0) {
@@ -53,11 +53,11 @@ public class Q2667 {
         }
 	}
 	private static void bfs(int x, int y, int cnt, int n) {
-		Queue<Pair> q = new LinkedList<Pair>();
-		q.add(new Pair(x,y));
+		Queue<Pair2> q = new LinkedList<Pair2>();
+		q.add(new Pair2(x,y));
 		d[x][y] = cnt;
 		while(!q.isEmpty()) {
-			Pair p = q.remove();
+			Pair2 p = q.remove();
 			x = p.x;
 			y = p.y;
 			for(int i=0; i<4;i++) {
@@ -65,7 +65,7 @@ public class Q2667 {
 				int ny = y + dy[i];
 				if(0 <= nx && 0 <= ny && nx < n && ny < n) {
 					if(a[nx][ny] == 1 && d[nx][ny] == 0) {
-						q.add(new Pair(nx, ny));
+						q.add(new Pair2(nx, ny));
 						d[nx][ny] = cnt;
 					}
 				}
@@ -74,10 +74,10 @@ public class Q2667 {
 	}
 
 }
-class Pair{
+class Pair2{
 	int x;
 	int y;
-	Pair(int x, int y){
+	Pair2(int x, int y){
 		this.x = x;
 		this.y = y;
 	}
