@@ -20,6 +20,7 @@ public class Q9020 {
 		boolean[] c = new boolean[n+1];
 		for(int i=2; i<=n;i++) {
 			if(!c[i]) {
+				
 				p[pn++] = i;
 				for(int j=i*i;j<=n;j+=i) {
 					c[j]= true;
