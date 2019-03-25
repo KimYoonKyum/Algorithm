@@ -13,7 +13,6 @@ public class Q9251 {
 		for(int i=0;i<length;i++) {
 			Character c = input.charAt(i);
 			for(int j=0; j<=length2; j++) {
-				
 			}
 		}
 	}
