@@ -1,4 +1,4 @@
-package example.stepbystep_remain;
+package example.practice;
 import java.util.*;
 public class Q10039 {
 	static final int N = 5;

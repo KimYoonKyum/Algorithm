@@ -1,4 +1,4 @@
-package example.stepbystep_remain;
+package example.practice;
 
 import java.io.*;
 import java.util.*;

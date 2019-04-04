@@ -1,4 +1,4 @@
-package example.stepbystep_remain;
+package example.practice;
 import java.util.*;
 import java.io.*;
 public class Q11365 {
