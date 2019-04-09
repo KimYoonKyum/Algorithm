@@ -1,37 +1,52 @@
 package example.practice;
 import java.util.*;
 public class Q2252 {
-	static int[] a;
+	static ArrayList<Integer>[] a;
 	static boolean[] check;
+	static int[] degree;
+	static Queue<Integer> q;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		
 		int n = sc.nextInt();
 		int m = sc.nextInt();
-		a = new int[n+1];
+		check = new boolean[n+1];
+		degree = new int[n+1];
+		q = new LinkedList();
+		
+		a = (ArrayList<Integer>[]) new ArrayList[n+1];
+		
+		for(int i=1; i<=n;i++) {
+			a[i] = new ArrayList<Integer>();
+		}
 		
 		for(int i=1; i<=m;i++) {
 			int v1 = sc.nextInt();
 			int v2 = sc.nextInt();
-			a[v1] = v2;
-		}
-		
-		for(int i=1; i<=n;i++) {
-			System.out.println(a[i]);
+			a[v1].add(v2);
+			++degree[v2];
 		}
 		for(int i=1; i<=n;i++) {
-			if(a[i] != 0) {
-				System.out.println("시작점 ="+i);
+			if(degree[i] == 0) {
+				q.offer(i);
 			}
 		}
-	}
-	
-	private static int dfs(int start) {
-		if(check[start]) {
-			return a[start];
+		
+		while(!q.isEmpty()) {
+			int v = q.poll();
+			
+			System.out.print(v+" ");
+			for(int x : a[v]) {
+				degree[x]--;
+				if(degree[x] == 0) {
+					q.offer(x);
+				}
+			}
+			
 		}
-		return dfs(a[start]);
 	}
-
+	/*
+	 * 아이디어는 입력시에 차수를 측정한 다음에 차수가 0인 애들부터 큐에 넣고 
+	 * 탐색 실행하면서 차수를 하나씩 줄여주면서 끝까지 가면된다.
+	 */
 }
